@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connexion — Académie de Trading</title>
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="base.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="logo">📈 Succès Académie de Trading</div>
+    <div class="card">
+      <h1 style="margin-top:0;font-size:20px;">Connexion</h1>
+
+      <div id="formMessage" class="form-message"></div>
+
+      <form id="loginForm" novalidate>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" required />
+          <div class="field-error" id="emailError"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" required />
+          <div class="field-error" id="passwordError"></div>
+        </div>
+
+        <button type="submit" class="btn" id="submitBtn">Se connecter</button>
+      </form>
+
+      <div class="form-footer">
+        <a href="./reset-password.html">Mot de passe oublié ?</a><br /><br />
+        Pas encore de compte ? <a href="./signup.html">S'inscrire</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="validators.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    const form = document.getElementById("loginForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const formMessage = document.getElementById("formMessage");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      formMessage.className = "form-message";
+      formMessage.textContent = "";
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      const emailErr = validateEmail(email);
+      showFieldError("emailError", emailErr);
+      if (emailErr) return;
+
+      if (!password) {
+        showFieldError("passwordError", "Veuillez entrer votre mot de passe.");
+        return;
+      }
+      showFieldError("passwordError", null);
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Connexion...";
+
+      const result = await signIn({ email, password });
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Se connecter";
+
+      if (!result.success) {
+        formMessage.className = "form-message error";
+        formMessage.textContent = result.message;
+        return;
+      }
+
+      window.location.href = "/app/dashboard.html";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inscription — Académie de Trading</title>
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="base.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="logo">📈 Succès Académie de Trading</div>
+    <div class="card">
+      <h1 style="margin-top:0;font-size:20px;">Créer un compte</h1>
+
+      <div id="formMessage" class="form-message"></div>
+
+      <form id="signupForm" novalidate>
+        <div class="form-group">
+          <label for="fullName">Nom complet</label>
+          <input type="text" id="fullName" name="fullName" autocomplete="name" required />
+          <div class="field-error" id="fullNameError"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" required />
+          <div class="field-error" id="emailError"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" name="password" autocomplete="new-password" required />
+          <div class="field-error" id="passwordError"></div>
+        </div>
+
+        <button type="submit" class="btn" id="submitBtn">Créer mon compte</button>
+      </form>
+
+      <div class="form-footer">
+        Déjà un compte ? <a href="./login.html">Se connecter</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="validators.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    const form = document.getElementById("signupForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const formMessage = document.getElementById("formMessage");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      formMessage.className = "form-message";
+      formMessage.textContent = "";
+
+      const fullName = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      const nameErr = validateFullName(fullName);
+      const emailErr = validateEmail(email);
+      const passErr = validatePassword(password);
+
+      showFieldError("fullNameError", nameErr);
+      showFieldError("emailError", emailErr);
+      showFieldError("passwordError", passErr);
+
+      if (nameErr || emailErr || passErr) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Création...";
+
+      const result = await signUp({ fullName, email, password });
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Créer mon compte";
+
+      if (!result.success) {
+        formMessage.className = "form-message error";
+        formMessage.textContent = result.message;
+        return;
+      }
+
+      if (result.needsEmailConfirmation) {
+        formMessage.className = "form-message success";
+        formMessage.textContent = result.message || "Vérifiez votre email pour confirmer votre compte.";
+        form.reset();
+        return;
+      }
+
+      window.location.href = "/app/dashboard.html";
+    });
+  </script>
+</body>
+</html>

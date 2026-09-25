@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leçon — Académie de Trading</title>
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="base.css" />
+  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="academy.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <a href="#" id="backLink" style="font-size:13px;">&larr; Retour au cours</a>
+
+      <div class="page-header" style="margin-top:12px;">
+        <h1 id="lessonTitle">Chargement...</h1>
+      </div>
+
+      <div id="lessonMessage" class="form-message"></div>
+
+      <div class="card" id="lessonContent" style="margin-bottom:24px;">
+        <p class="loading-text">Chargement de la leçon...</p>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:center;">
+        <button class="btn btn-sm" id="completeBtn" style="display:none;">Marquer comme terminée</button>
+        <span id="completedLabel" style="display:none;color:var(--color-success);font-size:14px;">✓ Leçon terminée</span>
+        <a class="btn btn-sm" id="nextLessonLink" style="display:none;background:var(--color-surface-alt);">Leçon suivante →</a>
+      </div>
+
+      <div id="courseCompleteNotice" style="display:none;margin-top:24px;" class="form-message success">
+        Toutes les leçons de ce cours sont terminées. Vous pouvez maintenant passer le quiz.
+        <a id="quizLink" href="#">Passer le quiz</a>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="guards.js"></script>
+  <script src="layout.js"></script>
+  <script src="lesson.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulateur — Académie de Trading</title>
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="base.css" />
+  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="simulator.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <div class="page-header">
+        <h1>Simulateur</h1>
+        <div class="balance-display">
+          <span class="label">Solde virtuel</span>
+          <span class="value" id="balanceValue">—</span>
+        </div>
+      </div>
+
+      <div id="simMessage" class="form-message"></div>
+
+      <h2 style="font-size:16px;margin-bottom:12px;">Marché</h2>
+      <div id="marketTable">
+        <p class="loading-text">Chargement des prix...</p>
+      </div>
+      <button class="btn-sm" id="refreshPricesBtn" style="margin-top:8px;width:auto;background:var(--color-surface-alt);color:var(--color-text);border:1px solid var(--color-border);border-radius:var(--radius);padding:8px 16px;cursor:pointer;">
+        Actualiser les prix
+      </button>
+
+      <h2 style="font-size:16px;margin:32px 0 12px;">Mon portefeuille</h2>
+      <div id="portfolioTable">
+        <p class="loading-text">Chargement...</p>
+      </div>
+
+      <h2 style="font-size:16px;margin:32px 0 12px;">Historique des trades</h2>
+      <div id="tradesHistory">
+        <p class="loading-text">Chargement...</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modale de trade -->
+  <div id="tradeModal" class="modal-backdrop" style="display:none;">
+    <div class="modal card">
+      <h3 id="tradeModalTitle" style="margin-top:0;"></h3>
+      <div class="form-group">
+        <label for="tradeQuantity">Quantité</label>
+        <input type="text" id="tradeQuantity" inputmode="decimal" placeholder="ex: 0.5" />
+        <div class="field-error" id="tradeQuantityError"></div>
+      </div>
+      <p id="tradeEstimate" style="font-size:13px;color:var(--color-text-muted);"></p>
+      <div style="display:flex;gap:8px;margin-top:16px;">
+        <button class="btn" id="tradeConfirmBtn">Confirmer</button>
+        <button class="btn" id="tradeCancelBtn" style="background:var(--color-surface-alt);">Annuler</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modale de feedback post-trade -->
+  <div id="feedbackModal" class="modal-backdrop" style="display:none;">
+    <div class="modal card">
+      <h3 style="margin-top:0;" id="feedbackTitle">Résultat du trade</h3>
+      <div id="feedbackContent"></div>
+      <button class="btn" id="feedbackCloseBtn" style="margin-top:16px;">Fermer</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="guards.js"></script>
+  <script src="layout.js"></script>
+  <script src="config.js"></script>
+  <script src="simulator.js"></script>
+</body>
+</html>
