@@ -3,8 +3,8 @@
 // Charger ce script APRÈS le CDN Supabase :
 // <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-const SUPABASE_URL = "https://jywtzplswdquybuxgcfz.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_WaHUONqb4DJzP08CCxuXFg_-piIfF9N";
+const SUPABASE_URL ="https://jywtzplswdquybuxgcfz.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY ="sb_publishable_WaHUONqb4DJzP08CCxuXFg_-piIfF9N";
 
 // La clé publishable/anon est prévue pour être exposée côté client :
 // toute la sécurité réelle repose sur les policies RLS côté base de données.
@@ -44,3 +44,5 @@ async function getCurrentProfile() {
   }
   return data;
 }
+
+
