@@ -23,7 +23,7 @@ async function requireAdmin() {
   const profile = await requireAuth();
   if (!profile) return null;
   if (profile.role !== "admin") {
-    window.location.href = "/app/dashboard.html";
+    window.location.href = "dashboard.html";
     return null;
   }
   return profile;
