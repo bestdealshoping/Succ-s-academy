@@ -41,8 +41,3 @@ function showFieldError(elementId, message) {
     el.style.display = message ? "block" : "none";
   }
 }
-if() {
-    
-}else {
-    
-}

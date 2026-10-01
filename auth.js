@@ -17,38 +17,10 @@ async function signUp({ fullName, email, password }) {
     return { success: false, message: translateAuthError(error) };
   }
 
-  const user = data.user;
-  if (!user) {
-    // Cas où la confirmation par email est requise avant que la session existe.
-    return {
-      success: true,
-      needsEmailConfirmation: true,
-      message: "Compte créé. Vérifiez votre email pour confirmer votre inscription.",
-    };
-  }
-
-  // Récupère le niveau "Débutant" (order_index = 1) pour l'assigner par défaut.
-  const { data: beginnerLevel } = await supabaseClient
-    .from("levels")
-    .select("id")
-    .eq("order_index", 1)
-    .single();
-
-  const { error: profileError } = await supabaseClient.from("profiles").insert({
-    id: user.id,
-    full_name: fullName,
-    email,
-    role: "student",
-    current_level_id: beginnerLevel ? beginnerLevel.id : null,
-  });
-
-  if (profileError) {
-    console.error("Erreur création profil:", profileError.message);
-    return {
-      success: false,
-      message: "Compte créé mais échec de la création du profil. Contactez le support.",
-    };
-  }
+  // Le profil (table `profiles`) est créé automatiquement par un trigger
+  // côté base de données (voir supabase/migrations/007_profile_auto_creation.sql),
+  // qui tourne en SECURITY DEFINER et fonctionne donc même si la confirmation
+  // par email est activée et qu'aucune session n'existe encore ici.
 
   return { success: true, needsEmailConfirmation: !data.session };
 }
