@@ -61,7 +61,7 @@ async function updatePassword(newPassword) {
 
 async function signOut() {
   await supabaseClient.auth.signOut();
-  window.location.href = "/auth/login.html";
+  window.location.href = "login.html";
 }
 
 function translateAuthError(error) {
