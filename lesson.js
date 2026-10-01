@@ -117,7 +117,7 @@ async function loadLessonContext(userId, lessonId) {
 
 function renderLesson(ctx) {
   document.getElementById("lessonTitle").textContent = ctx.lesson.title;
-  document.getElementById("backLink").href = `/app/academy.html?level=${ctx.level.id}`;
+  document.getElementById("backLink").href = `academy.html?level=${ctx.level.id}`;
 
   const contentHtml = ctx.lesson.video_url
     ? `<p><a href="${ctx.lesson.video_url}" target="_blank" rel="noopener">▶ Voir la vidéo de la leçon</a></p>${ctx.lesson.content || ""}`
@@ -137,12 +137,12 @@ function renderLesson(ctx) {
 
   if (ctx.nextLesson) {
     nextLessonLink.style.display = "inline-block";
-    nextLessonLink.href = `/app/lesson.html?lesson=${ctx.nextLesson.id}`;
+    nextLessonLink.href = `/lesson.html?lesson=${ctx.nextLesson.id}`;
   }
 
   if (ctx.courseAllDoneAfterThis && ctx.quiz) {
     document.getElementById("courseCompleteNotice").style.display = "block";
-    document.getElementById("quizLink").href = `/app/quiz.html?quiz=${ctx.quiz.id}`;
+    document.getElementById("quizLink").href = `quiz.html?quiz=${ctx.quiz.id}`;
   }
 }
 
@@ -171,6 +171,6 @@ async function markLessonComplete(ctx) {
 
   if (ctx.courseAllDoneAfterThis && ctx.quiz) {
     document.getElementById("courseCompleteNotice").style.display = "block";
-    document.getElementById("quizLink").href = `/app/quiz.html?quiz=${ctx.quiz.id}`;
+    document.getElementById("quizLink").href = `quiz.html?quiz=${ctx.quiz.id}`;
   }
 }
