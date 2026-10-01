@@ -1,0 +1,313 @@
+/* ====== Nav ====== */
+.landing-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 6vw;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.landing-nav .brand {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.landing-nav .nav-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-btn {
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.nav-btn.ghost {
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.nav-btn.ghost:hover {
+  text-decoration: none;
+  border-color: var(--color-text-muted);
+}
+
+.nav-btn.solid {
+  background: var(--color-primary);
+  color: white;
+}
+
+.nav-btn.solid:hover {
+  text-decoration: none;
+  background: var(--color-primary-hover);
+}
+
+/* ====== Hero ====== */
+.hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 56px 6vw 80px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 4.5vw, 52px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0 0 20px;
+}
+
+.hero .lede {
+  font-size: 18px;
+  color: var(--color-text-muted);
+  max-width: 50ch;
+  margin: 0 0 32px;
+  line-height: 1.55;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hero-cta {
+  padding: 13px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.hero-cta.primary {
+  background: var(--color-primary);
+  color: white;
+}
+.hero-cta.primary:hover {
+  text-decoration: none;
+  background: var(--color-primary-hover);
+}
+
+.hero-cta.secondary {
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+.hero-cta.secondary:hover {
+  text-decoration: none;
+  border-color: var(--color-text-muted);
+}
+
+.hero-note {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+/* Visuel : graphique de chandelier simplifié */
+.hero-visual {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.hero-visual svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ====== Sections génériques ====== */
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px 6vw;
+  border-top: 1px solid var(--color-border);
+}
+
+.section-head {
+  max-width: 60ch;
+  margin-bottom: 40px;
+}
+
+.section-head h2 {
+  font-size: clamp(24px, 3vw, 32px);
+  letter-spacing: -0.01em;
+  margin: 0 0 12px;
+}
+
+.section-head p {
+  color: var(--color-text-muted);
+  font-size: 16px;
+  margin: 0;
+}
+
+/* ====== Parcours (séquence réelle → numérotée) ====== */
+.path-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--color-border);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.path-step {
+  background: var(--color-surface);
+  padding: 28px 22px;
+}
+
+.path-step .step-num {
+  font-size: 13px;
+  color: var(--color-primary);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.path-step h3 {
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+
+.path-step p {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ====== Fonctionnalités : liste alternée, pas des cartes identiques ====== */
+.feature-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  padding: 36px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.feature-row:last-child {
+  border-bottom: none;
+}
+
+.feature-row:nth-child(even) .feature-text {
+  order: 2;
+}
+
+.feature-text h3 {
+  font-size: 20px;
+  margin: 0 0 10px;
+}
+
+.feature-text p {
+  color: var(--color-text-muted);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 48ch;
+}
+
+.feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 36px;
+}
+
+.feature-icon svg {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+}
+
+/* ====== Niveaux (réutilise .level-card de app.css) ====== */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.pricing-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.pricing-card h3 {
+  font-size: 16px;
+  margin: 0 0 6px;
+}
+
+.pricing-card .price {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.pricing-card .price .free-tag {
+  font-size: 16px;
+  color: var(--color-success);
+}
+
+.pricing-card ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* ====== Footer ====== */
+.landing-footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 6vw 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.landing-footer a {
+  color: var(--color-text-muted);
+  margin-left: 16px;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 760px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .path-steps {
+    grid-template-columns: 1fr 1fr;
+  }
+  .feature-row,
+  .feature-row:nth-child(even) .feature-text {
+    grid-template-columns: 1fr;
+    order: 0;
+  }
+  .feature-row {
+    display: flex;
+    flex-direction: column;
+  }
+  .landing-footer {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+  .landing-footer a {
+    margin: 0 8px;
+  }
+}
