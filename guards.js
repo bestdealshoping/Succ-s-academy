@@ -10,7 +10,7 @@
 async function requireAuth() {
   const session = await getCurrentSession();
   if (!session) {
-    window.location.href = "/auth/login.html";
+    window.location.href = "login.html";
     return null;
   }
   return getCurrentProfile();
