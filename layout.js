@@ -3,14 +3,14 @@
 // Usage : <div id="sidebar"></div> puis renderSidebar('dashboard', profile)
 
 const APP_NAV_ITEMS = [
-  { key: "dashboard", label: "Tableau de bord", href: "/app/dashboard.html" },
-  { key: "academy", label: "Académie", href: "/app/academy.html" },
-  { key: "simulator", label: "Simulateur", href: "/app/simulator.html" },
-  { key: "atlas", label: "Coach Atlas", href: "/app/atlas.html" },
-  { key: "journal", label: "Journal de trading", href: "/app/journal.html" },
-  { key: "community", label: "Communauté", href: "/app/community.html" },
-  { key: "certificates", label: "Certificats", href: "/app/certificates.html" },
-  { key: "billing", label: "Facturation", href: "/app/billing.html" },
+  { key: "dashboard", label: "Tableau de bord", href: "dashboard.html" },
+  { key: "academy", label: "Académie", href: "academy.html" },
+  { key: "simulator", label: "Simulateur", href: "simulator.html" },
+  { key: "atlas", label: "Coach Atlas", href: "atlas.html" },
+  { key: "journal", label: "Journal de trading", href: "journal.html" },
+  { key: "community", label: "Communauté", href: "community.html" },
+  { key: "certificates", label: "Certificats", href: "certificates.html" },
+  { key: "billing", label: "Facturation", href: "billing.html" },
 ];
 
 function renderSidebar(activeKey, profile) {
