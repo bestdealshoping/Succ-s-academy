@@ -10,7 +10,7 @@
 
   if (!levelId) {
     document.getElementById("coursesContainer").innerHTML =
-      '<p class="loading-text">Aucun niveau sélectionné. Retournez au <a href="/app/dashboard.html">tableau de bord</a>.</p>';
+      '<p class="loading-text">Aucun niveau sélectionné. Retournez au <a href="dashboard.html">tableau de bord</a>.</p>';
     return;
   }
 
@@ -18,7 +18,7 @@
     const data = await loadAcademyData(profile.id, levelId);
     if (!data.unlocked) {
       document.getElementById("lockedNotice").style.display = "block";
-      document.getElementById("unlockLink").href = `/app/billing.html?level=${levelId}`;
+      document.getElementById("unlockLink").href = `billing.html?level=${levelId}`;
       document.getElementById("coursesContainer").innerHTML = "";
       document.getElementById("levelTitle").textContent = data.level.name;
       return;
@@ -127,7 +127,7 @@ function renderCourses({ level, completedLessonIds, quizIdByCourse, passedQuizId
                 return `
                 <li class="lesson-item">
                   <span class="lesson-check ${done ? "done" : ""}"></span>
-                  <a href="/app/lesson.html?lesson=${lesson.id}">${lesson.title}</a>
+                  <a href="lesson.html?lesson=${lesson.id}">${lesson.title}</a>
                 </li>`;
               })
               .join("")}
@@ -142,7 +142,7 @@ function renderCourses({ level, completedLessonIds, quizIdByCourse, passedQuizId
         let action = "";
         if (allLessonsDone && !quizPassed) {
           statusLabel = "Prêt à passer";
-          action = `<a class="btn btn-sm" href="/app/quiz.html?quiz=${quizId}">Passer le quiz</a>`;
+          action = `<a class="btn btn-sm" href="quiz.html?quiz=${quizId}">Passer le quiz</a>`;
         } else if (quizPassed) {
           statusLabel = "✓ Réussi";
         }
