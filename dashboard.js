@@ -123,8 +123,8 @@ function renderLevels({ levels, completedLessonIds, paidLevelIds, certifiedLevel
       }
 
       const actionHtml = unlocked
-        ? `<a class="btn btn-sm" href="/app/academy.html?level=${level.id}">Continuer</a>`
-        : `<a class="btn btn-sm" href="/app/billing.html?level=${level.id}">Débloquer</a>`;
+        ? `<a class="btn btn-sm" href="academy.html?level=${level.id}">Continuer</a>`
+        : `<a class="btn btn-sm" href="billing.html?level=${level.id}">Débloquer</a>`;
 
       return `
         <div class="level-card ${unlocked ? "" : "locked"}">
