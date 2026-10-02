@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utilisateurs — Admin</title>
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="base.css" />
+  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <div class="page-header">
+        <h1>Utilisateurs</h1>
+      </div>
+
+      <div id="adminMessage" class="form-message"></div>
+
+      <div class="form-group" style="max-width:320px;">
+        <input type="text" id="searchInput" placeholder="Rechercher par nom ou email..." />
+      </div>
+
+      <div id="usersContainer" style="margin-top:16px;">
+        <p class="loading-text">Chargement...</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modale détail utilisateur -->
+  <div id="userModal" class="modal-backdrop" style="display:none;">
+    <div class="modal card" style="max-width:520px;max-height:85vh;overflow-y:auto;">
+      <h3 id="userModalName" style="margin-top:0;"></h3>
+      <p id="userModalEmail" style="color:var(--color-text-muted);font-size:13px;margin-top:-10px;"></p>
+
+      <div style="margin:16px 0;">
+        <label style="font-size:13px;color:var(--color-text-muted);">Rôle</label>
+        <select id="roleSelect" style="width:100%;padding:8px;background:var(--color-surface-alt);border:1px solid var(--color-border);border-radius:8px;color:var(--color-text);margin-top:4px;">
+          <option value="student">Étudiant</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+
+      <div id="userStats" style="font-size:13px;color:var(--color-text-muted);margin-bottom:16px;"></div>
+
+      <h4 style="font-size:13px;margin-bottom:8px;">Historique des paiements</h4>
+      <div id="userPayments" style="margin-bottom:16px;"></div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn btn-sm" id="saveRoleBtn">Enregistrer le rôle</button>
+        <button class="btn btn-sm" id="resetProgressBtn" style="background:rgba(239,68,68,.15);color:#fca5a5;">
+          Réinitialiser la progression
+        </button>
+        <button class="btn btn-sm" id="closeUserModalBtn" style="background:var(--color-surface-alt);">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="guards.js"></script>
+  <script src="admin-layout.js"></script>
+  <script src="admin-users.js"></script>
+</body>
+</html>
