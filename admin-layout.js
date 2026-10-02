@@ -3,7 +3,7 @@
 // sert l'espace étudiant.
 
 const ADMIN_NAV_ITEMS = [
-  { key: "courses", label: "Contenu académique", href: "course.html" },
+  { key: "courses", label: "Contenu académique", href: "courses.html" },
   { key: "users", label: "Utilisateurs", href: "users.html" },
   { key: "payments", label: "Paiements", href: "payments.html" },
   { key: "community", label: "Communauté", href: "admin-community.html" },
