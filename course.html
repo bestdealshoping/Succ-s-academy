@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contenu académique — Admin</title>
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="base.css" />
+  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <div class="page-header">
+        <h1>Contenu académique</h1>
+      </div>
+
+      <div id="adminMessage" class="form-message"></div>
+
+      <div class="level-tabs" id="levelTabs"></div>
+
+      <div id="coursesContainer" style="margin-top:20px;">
+        <p class="loading-text">Chargement...</p>
+      </div>
+
+      <button class="btn btn-sm" id="addCourseBtn" style="width:auto;margin-top:16px;">+ Ajouter un cours</button>
+    </main>
+  </div>
+
+  <!-- Modale générique (cours / module / leçon) -->
+  <div id="adminModal" class="modal-backdrop" style="display:none;">
+    <div class="modal card" style="max-width:520px;">
+      <h3 id="modalTitle" style="margin-top:0;"></h3>
+      <div id="modalFields"></div>
+      <div style="display:flex;gap:8px;margin-top:16px;">
+        <button class="btn btn-sm" id="modalSaveBtn">Enregistrer</button>
+        <button class="btn btn-sm" id="modalCancelBtn" style="background:var(--color-surface-alt);">Annuler</button>
+        <button class="btn btn-sm" id="modalDeleteBtn" style="background:rgba(239,68,68,.15);color:#fca5a5;display:none;margin-left:auto;">Supprimer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="guards.js"></script>
+  <script src="admin-layout.js"></script>
+  <script src="admin-courses.js"></script>
+</body>
+</html>
