@@ -3,12 +3,12 @@
 // sert l'espace étudiant.
 
 const ADMIN_NAV_ITEMS = [
-  { key: "courses", label: "Contenu académique", href: "/admin/courses.html" },
-  { key: "users", label: "Utilisateurs", href: "/admin/users.html" },
-  { key: "payments", label: "Paiements", href: "/admin/payments.html" },
-  { key: "community", label: "Communauté", href: "/admin/community.html" },
-  { key: "stats", label: "Statistiques", href: "/admin/stats.html" },
-  { key: "audit-logs", label: "Logs & audit", href: "/admin/audit-logs.html" },
+  { key: "courses", label: "Contenu académique", href: "courses.html" },
+  { key: "users", label: "Utilisateurs", href: "users.html" },
+  { key: "payments", label: "Paiements", href: "payments.html" },
+  { key: "community", label: "Communauté", href: "community.html" },
+  { key: "stats", label: "Statistiques", href: "stats.html" },
+  { key: "audit-logs", label: "Logs & audit", href: "audit-logs.html" },
 ];
 
 function renderAdminSidebar(activeKey, profile) {
