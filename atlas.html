@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coach Atlas — Académie de Trading</title>
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="base.css" />
+  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="atlas.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main atlas-main">
+      <div class="page-header">
+        <h1>🧭 Atlas — Coach IA</h1>
+        <button class="btn btn-sm" id="newConvBtn" style="width:auto;background:var(--color-surface-alt);">+ Nouvelle conversation</button>
+      </div>
+
+      <div class="atlas-layout">
+        <div class="atlas-conv-list card" id="convList">
+          <p class="loading-text">Chargement...</p>
+        </div>
+
+        <div class="atlas-chat-panel card">
+          <div id="chatMessages" class="atlas-messages">
+            <p class="loading-text">Sélectionnez ou démarrez une conversation pour parler à Atlas.</p>
+          </div>
+
+          <div id="imagePreviewRow" class="image-preview-row" style="display:none;">
+            <img id="imagePreview" alt="Graphique sélectionné" />
+            <button id="removeImageBtn" title="Retirer l'image">✕</button>
+          </div>
+
+          <form id="atlasForm" class="atlas-input-row">
+            <label class="attach-btn" title="Joindre un graphique">
+              📎
+              <input type="file" id="imageInput" accept="image/*" style="display:none;" />
+            </label>
+            <textarea id="messageInput" rows="1" placeholder="Pose une question à Atlas..."></textarea>
+            <button type="submit" class="btn btn-sm" id="sendBtn">Envoyer</button>
+          </form>
+          <p class="atlas-disclaimer">
+            Atlas enseigne la méthodologie — il ne donne jamais d'ordre d'achat ou de vente.
+          </p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="guards.js"></script>
+  <script src="layout.js"></script>
+  <script src="config.js"></script>
+  <script src="atlas.js"></script>
+</body>
+</html>
