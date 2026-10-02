@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paiements — Admin</title>
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="base.css" />
+  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <div class="page-header">
+        <h1>Paiements</h1>
+      </div>
+
+      <div id="adminMessage" class="form-message"></div>
+
+      <div class="stat-grid" id="revenueStats"></div>
+
+      <div class="level-tabs" id="statusTabs">
+        <button class="level-tab active" data-status="all">Tous</button>
+        <button class="level-tab" data-status="succeeded">Réussis</button>
+        <button class="level-tab" data-status="pending">En attente</button>
+        <button class="level-tab" data-status="failed">Échoués</button>
+        <button class="level-tab" data-status="refunded">Remboursés</button>
+      </div>
+
+      <div id="paymentsContainer" style="margin-top:16px;">
+        <p class="loading-text">Chargement...</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="guards.js"></script>
+  <script src="admin-layout.js"></script>
+  <script src="admin-payments.js"></script>
+</body>
+</html>
