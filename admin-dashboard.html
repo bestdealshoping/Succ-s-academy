@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tableau de bord — Admin</title>
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="base.css" />
+  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <div class="page-header">
+        <h1 id="welcomeTitle">Tableau de bord admin</h1>
+      </div>
+
+      <div class="stat-grid" id="overviewStats">
+        <div class="stat-card"><div class="label">Chargement...</div></div>
+      </div>
+
+      <div id="pendingModerationNotice" class="form-message error" style="display:none;"></div>
+
+      <h2 style="font-size:16px;margin:28px 0 12px;">Accès rapide</h2>
+      <div class="quick-links" id="quickLinks">
+        <a class="quick-link-card" href="courses.html">
+          <h3>📚 Contenu académique</h3>
+          <p>Cours, modules, leçons</p>
+        </a>
+        <a class="quick-link-card" href="users.html">
+          <h3>👤 Utilisateurs</h3>
+          <p>Profils, rôles, progression</p>
+        </a>
+        <a class="quick-link-card" href="/admin/payments.html">
+          <h3>💳 Paiements</h3>
+          <p>Transactions, revenus</p>
+        </a>
+        <a class="quick-link-card" href="community.html">
+          <h3>💬 Communauté</h3>
+          <p>Modération des posts</p>
+        </a>
+        <a class="quick-link-card" href="stats.html">
+          <h3>📊 Statistiques</h3>
+          <p>Complétion, taux de réussite</p>
+        </a>
+        <a class="quick-link-card" href="audit-logs.html">
+          <h3>🧾 Logs & audit</h3>
+          <p>Historique des actions admin</p>
+        </a>
+      </div>
+
+      <h2 style="font-size:16px;margin:28px 0 12px;">Activité récente</h2>
+      <div id="recentActivity">
+        <p class="loading-text">Chargement...</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="guards.js"></script>
+  <script src="admin-layout.js"></script>
+  <script src="admin-dashboard.js"></script>
+</body>
+</html> 
