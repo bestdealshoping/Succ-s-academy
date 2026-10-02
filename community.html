@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Communauté — Académie de Trading</title>
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="base.css" />
+  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="community.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <div class="page-header">
+        <h1>Communauté</h1>
+      </div>
+
+      <div id="communityMessage" class="form-message"></div>
+
+      <div class="category-tabs" id="categoryTabs"></div>
+
+      <button class="btn btn-sm" id="newPostBtn" style="width:auto;margin:16px 0;">+ Nouveau post</button>
+
+      <form id="postForm" class="card" style="display:none;margin-bottom:20px;">
+        <div class="form-group">
+          <label for="postTitle">Titre</label>
+          <input type="text" id="postTitle" required />
+        </div>
+        <div class="form-group">
+          <label for="postContent">Message</label>
+          <textarea id="postContent" rows="4" required></textarea>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button type="submit" class="btn btn-sm" id="submitPostBtn">Publier</button>
+          <button type="button" class="btn btn-sm" id="cancelPostBtn" style="background:var(--color-surface-alt);">Annuler</button>
+        </div>
+      </form>
+
+      <div id="postsContainer">
+        <p class="loading-text">Chargement...</p>
+      </div>
+
+      <!-- Vue détail d'un post -->
+      <div id="postDetail" class="card" style="display:none;margin-top:20px;">
+        <a href="#" id="backToList" style="font-size:13px;">&larr; Retour aux posts</a>
+        <h2 id="postDetailTitle" style="margin:12px 0 4px;"></h2>
+        <p id="postDetailMeta" style="font-size:12px;color:var(--color-text-muted);margin:0 0 12px;"></p>
+        <p id="postDetailContent"></p>
+
+        <h3 style="font-size:14px;margin:20px 0 10px;">Commentaires</h3>
+        <div id="commentsContainer"></div>
+
+        <form id="commentForm" style="margin-top:12px;">
+          <textarea id="commentInput" rows="2" placeholder="Votre commentaire..." required></textarea>
+          <button type="submit" class="btn btn-sm" style="margin-top:8px;">Commenter</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="guards.js"></script>
+  <script src="layout.js"></script>
+  <script src="config.js"></script>
+  <script src="community.js"></script>
+</body>
+</html>
