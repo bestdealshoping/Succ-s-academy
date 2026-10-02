@@ -65,4 +65,4 @@ function renderLogs(filter) {
           .join("")}
       </tbody>
     </table>`;
-} 
+}
