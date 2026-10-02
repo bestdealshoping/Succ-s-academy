@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Statistiques — Admin</title>
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="base.css" />
+  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <div class="page-header">
+        <h1>Statistiques</h1>
+      </div>
+
+      <div class="stat-grid" id="globalStats"></div>
+
+      <h2 style="font-size:16px;margin:28px 0 12px;">Progression par niveau</h2>
+      <div id="levelStatsContainer">
+        <p class="loading-text">Chargement...</p>
+      </div>
+
+      <h2 style="font-size:16px;margin:28px 0 12px;">Taux de réussite des quiz</h2>
+      <div id="quizStatsContainer">
+        <p class="loading-text">Chargement...</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="guards.js"></script>
+  <script src="admin-layout.js"></script>
+  <script src="admin-stats.js"></script>
+</body>
+</html>
