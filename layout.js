@@ -25,7 +25,7 @@ function renderSidebar(activeKey, profile) {
   const adminLink =
     profile && profile.role === "admin"
       ? `<div style="margin-top:16px;border-top:1px solid var(--color-border);padding-top:16px;">
-           <a href="users.html">Espace admin</a>
+           <a href="admin-dashboard.html">Espace admin</a>
          </div>`
       : "";
 
