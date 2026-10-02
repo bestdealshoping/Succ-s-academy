@@ -24,7 +24,7 @@ function renderAdminSidebar(activeKey, profile) {
     <div class="logo">🛠 Back-office</div>
     <nav>${navHtml}
       <div style="margin-top:16px;border-top:1px solid var(--color-border);padding-top:16px;">
-        <a href="admin-dashboard.html">← Retour à l'académie</a>
+        <a href="dashboard.html">← Retour à l'académie</a>
       </div>
     </nav>
     <div class="signout">
