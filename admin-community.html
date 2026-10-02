@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modération — Admin</title>
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="base.css" />
+  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="admin.css" />
+  <link rel="stylesheet" href="community.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <div class="page-header">
+        <h1>Modération de la communauté</h1>
+      </div>
+
+      <div id="adminMessage" class="form-message"></div>
+
+      <div class="level-tabs" id="filterTabs">
+        <button class="level-tab active" data-filter="hidden">Masqués</button>
+        <button class="level-tab" data-filter="all">Tous les posts</button>
+      </div>
+
+      <h2 style="font-size:16px;margin:20px 0 10px;">Posts</h2>
+      <div id="postsContainer">
+        <p class="loading-text">Chargement...</p>
+      </div>
+
+      <h2 style="font-size:16px;margin:28px 0 10px;">Journal de modération (dernières actions)</h2>
+      <div id="logsContainer">
+        <p class="loading-text">Chargement...</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="guards.js"></script>
+  <script src="admin-layout.js"></script>
+  <script src="admin-community.js"></script>
+</body>
+</html>
