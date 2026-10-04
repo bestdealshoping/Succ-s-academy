@@ -24,13 +24,36 @@
 
       <div id="simMessage" class="form-message"></div>
 
-      <h2 style="font-size:16px;margin-bottom:12px;">Marché</h2>
+      <!-- Panneau de trading principal : graphique + achat/vente -->
+      <div class="trading-panel card">
+        <div class="instrument-tabs" id="instrumentTabs"></div>
+
+        <div class="chart-header">
+          <div>
+            <div class="chart-price" id="chartPrice">—</div>
+            <div class="chart-change" id="chartChange">—</div>
+          </div>
+          <div class="chart-range">
+            <span>Haut (session) : <strong id="chartHigh">—</strong></span>
+            <span>Bas (session) : <strong id="chartLow">—</strong></span>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <svg id="priceChart" viewBox="0 0 600 220" preserveAspectRatio="none"></svg>
+        </div>
+
+        <div class="chart-actions">
+          <button class="btn-buy" id="chartBuyBtn">Acheter</button>
+          <button class="btn-sell" id="chartSellBtn">Vendre</button>
+          <span class="live-indicator"><span class="dot"></span> Prix en direct (simulé)</span>
+        </div>
+      </div>
+
+      <h2 style="font-size:16px;margin:28px 0 12px;">Tous les instruments</h2>
       <div id="marketTable">
         <p class="loading-text">Chargement des prix...</p>
       </div>
-      <button class="btn-sm" id="refreshPricesBtn" style="margin-top:8px;width:auto;background:var(--color-surface-alt);color:var(--color-text);border:1px solid var(--color-border);border-radius:var(--radius);padding:8px 16px;cursor:pointer;">
-        Actualiser les prix
-      </button>
 
       <h2 style="font-size:16px;margin:32px 0 12px;">Mon portefeuille</h2>
       <div id="portfolioTable">
@@ -70,6 +93,7 @@
     </div>
   </div>
 
+  <script src="../assets/js/error-overlay.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabaseClient.js"></script>
   <script src="guards.js"></script>
