@@ -1,21 +1,29 @@
 // assets/js/pages/simulator.js
 
 let currentPrices = {};
+let priceHistory = {}; // { instrument: [price, price, ...] } — en mémoire depuis l'ouverture de la page
+let selectedInstrument = null;
 let pendingTrade = null; // { instrument, action }
+let pollTimer = null;
 
 (async function init() {
   const profile = await requireAuth();
   if (!profile) return;
   renderSidebar("simulator", profile);
 
-  document.getElementById("refreshPricesBtn").addEventListener("click", loadMarket);
   document.getElementById("tradeCancelBtn").addEventListener("click", closeTradeModal);
   document.getElementById("tradeConfirmBtn").addEventListener("click", confirmTrade);
   document.getElementById("feedbackCloseBtn").addEventListener("click", () => {
     document.getElementById("feedbackModal").style.display = "none";
   });
+  document.getElementById("chartBuyBtn").addEventListener("click", () => openTradeModal(selectedInstrument, "buy"));
+  document.getElementById("chartSellBtn").addEventListener("click", () => openTradeModal(selectedInstrument, "sell"));
 
   await Promise.all([loadBalance(), loadMarket(), loadPortfolioAndHistory()]);
+
+  // Actualise les prix toutes les 4 secondes pour un effet "marché en direct".
+  pollTimer = setInterval(loadMarket, 4000);
+  window.addEventListener("beforeunload", () => clearInterval(pollTimer));
 })();
 
 async function loadBalance() {
@@ -27,7 +35,6 @@ async function loadBalance() {
     .maybeSingle();
 
   if (!account) {
-    // Allocation initiale à la première visite (RLS autorise l'utilisateur à créer sa propre ligne).
     const { data: created } = await supabaseClient
       .from("simulator_accounts")
       .insert({ user_id: session.user.id })
@@ -47,13 +54,102 @@ async function loadMarket() {
   try {
     const { instruments } = await callEdgeFunction("get-market-prices", {});
     currentPrices = {};
-    instruments.forEach((i) => (currentPrices[i.instrument] = i));
+    instruments.forEach((i) => {
+      currentPrices[i.instrument] = i;
+      if (!priceHistory[i.instrument]) priceHistory[i.instrument] = [];
+      const hist = priceHistory[i.instrument];
+      if (hist[hist.length - 1] !== i.current_price) {
+        hist.push(i.current_price);
+        if (hist.length > 60) hist.shift();
+      }
+    });
+
+    if (!selectedInstrument) selectedInstrument = instruments[0]?.instrument || null;
+
+    renderInstrumentTabs(instruments);
+    renderChart();
     renderMarket(instruments);
+    renderPortfolioOnly();
   } catch (err) {
     console.error("Erreur chargement des prix:", err);
     document.getElementById("marketTable").innerHTML =
       '<p class="loading-text">Impossible de charger les prix du marché.</p>';
   }
+}
+
+function renderInstrumentTabs(instruments) {
+  document.getElementById("instrumentTabs").innerHTML = instruments
+    .map(
+      (i) =>
+        `<button class="instrument-tab ${i.instrument === selectedInstrument ? "active" : ""}" data-sel="${i.instrument}">${i.instrument}</button>`
+    )
+    .join("");
+
+  document.querySelectorAll("[data-sel]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      selectedInstrument = btn.dataset.sel;
+      document.querySelectorAll(".instrument-tab").forEach((el) => el.classList.remove("active"));
+      btn.classList.add("active");
+      renderChart();
+    });
+  });
+}
+
+function renderChart() {
+  if (!selectedInstrument) return;
+  const data = currentPrices[selectedInstrument];
+  const hist = priceHistory[selectedInstrument] || [];
+  if (!data) return;
+
+  const change = data.current_price - data.previous_price;
+  const changePercent = data.previous_price ? (change / data.previous_price) * 100 : 0;
+  const direction = change >= 0 ? "up" : "down";
+
+  document.getElementById("chartPrice").textContent = formatUsd(data.current_price);
+  const changeEl = document.getElementById("chartChange");
+  changeEl.textContent = `${change >= 0 ? "▲" : "▼"} ${Math.abs(changePercent).toFixed(2)}%`;
+  changeEl.className = `chart-change ${direction}`;
+
+  const high = hist.length ? Math.max(...hist) : data.current_price;
+  const low = hist.length ? Math.min(...hist) : data.current_price;
+  document.getElementById("chartHigh").textContent = formatUsd(high);
+  document.getElementById("chartLow").textContent = formatUsd(low);
+
+  drawLineChart(hist.length > 1 ? hist : [data.current_price, data.current_price], direction);
+}
+
+function drawLineChart(points, direction) {
+  const svg = document.getElementById("priceChart");
+  const width = 600;
+  const height = 220;
+  const padding = 10;
+
+  const min = Math.min(...points);
+  const max = Math.max(...points);
+  const range = max - min || 1;
+
+  const stepX = (width - padding * 2) / Math.max(points.length - 1, 1);
+  const coords = points.map((p, i) => {
+    const x = padding + i * stepX;
+    const y = height - padding - ((p - min) / range) * (height - padding * 2);
+    return [x, y];
+  });
+
+  const linePath = coords.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x.toFixed(2)},${y.toFixed(2)}`).join(" ");
+  const areaPath = `${linePath} L${coords[coords.length - 1][0].toFixed(2)},${height} L${coords[0][0].toFixed(2)},${height} Z`;
+
+  const color = direction === "up" ? "#22c55e" : "#ef4444";
+
+  svg.innerHTML = `
+    <defs>
+      <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="${color}" stop-opacity="0.25" />
+        <stop offset="100%" stop-color="${color}" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+    <path d="${areaPath}" fill="url(#chartFill)" stroke="none" />
+    <path d="${linePath}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  `;
 }
 
 function renderMarket(instruments) {
@@ -65,7 +161,7 @@ function renderMarket(instruments) {
       const arrow = change >= 0 ? "▲" : "▼";
 
       return `
-        <div class="market-row">
+        <div class="market-row" data-row-instrument="${i.instrument}">
           <div>
             <div class="instrument-name">${i.display_name}</div>
             <div class="instrument-code">${i.instrument}</div>
@@ -83,13 +179,26 @@ function renderMarket(instruments) {
     .join("");
 
   document.querySelectorAll(".btn-buy, .btn-sell").forEach((btn) => {
-    btn.addEventListener("click", () =>
-      openTradeModal(btn.dataset.instrument, btn.dataset.action)
-    );
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openTradeModal(btn.dataset.instrument, btn.dataset.action);
+    });
+  });
+
+  document.querySelectorAll("[data-row-instrument]").forEach((row) => {
+    row.addEventListener("click", () => {
+      selectedInstrument = row.dataset.rowInstrument;
+      document.querySelectorAll(".instrument-tab").forEach((el) => {
+        el.classList.toggle("active", el.dataset.sel === selectedInstrument);
+      });
+      renderChart();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
   });
 }
 
 function openTradeModal(instrument, action) {
+  if (!instrument) return;
   pendingTrade = { instrument, action };
   const price = currentPrices[instrument]?.current_price || 0;
   document.getElementById("tradeModalTitle").textContent = `${action === "buy" ? "Acheter" : "Vendre"} ${instrument}`;
@@ -169,6 +278,8 @@ function showFeedback(result) {
   document.getElementById("feedbackModal").style.display = "flex";
 }
 
+let cachedTrades = [];
+
 async function loadPortfolioAndHistory() {
   const session = await getCurrentSession();
 
@@ -194,8 +305,13 @@ async function loadPortfolioAndHistory() {
     return;
   }
 
+  cachedTrades = trades;
   renderPortfolio(trades);
   renderHistory(trades);
+}
+
+function renderPortfolioOnly() {
+  if (cachedTrades.length > 0) renderPortfolio(cachedTrades);
 }
 
 function renderPortfolio(trades) {
