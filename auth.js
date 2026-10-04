@@ -59,10 +59,7 @@ async function updatePassword(newPassword) {
   return { success: true, message: "Mot de passe mis à jour." };
 }
 
-async function signOut() {
-  await supabaseClient.auth.signOut();
-  window.location.href = "login.html";
-}
+// signOut() vit maintenant dans supabaseClient.js (chargé sur toutes les pages).
 
 function translateAuthError(error) {
   const msg = (error && error.message) || "";
