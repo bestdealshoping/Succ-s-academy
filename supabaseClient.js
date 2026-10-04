@@ -3,8 +3,8 @@
 // Charger ce script APRÈS le CDN Supabase :
 // <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-const SUPABASE_URL = "https://jywtzplswdquybuxgcfz.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_WaHUONqb4DJzP08CCxuXFg_-piIfF9N";
+const SUPABASE_URL = "https://znromggearqrcsfqmqid.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_U9shMrotVEO6bYwhmGF68A_wPEKcMo";
 
 // La clé publishable/anon est prévue pour être exposée côté client :
 // toute la sécurité réelle repose sur les policies RLS côté base de données.
@@ -43,4 +43,15 @@ async function getCurrentProfile() {
     return null;
   }
   return data;
+}
+
+/**
+ * Déconnecte l'utilisateur. Centralisée ici (et non dans auth.js) car ce
+ * fichier est inclus sur TOUTES les pages — auth.js ne l'est que sur les
+ * pages de connexion/inscription, donc le bouton "Se déconnecter" du menu
+ * latéral (présent sur chaque page de l'app) ne le trouvait pas.
+ */
+async function signOut() {
+  await supabaseClient.auth.signOut();
+  window.location.href = "login.html";
 }
